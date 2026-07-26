@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import api from '../lib/api.js'
 import { Layout, TopBar } from '../components/Layout.jsx'
+import { generateSackManifestPdf } from "../../../server/src/utils/pdfGenerator.js";
 import { C, Badge, Btn, Spinner, Table, TR, TD, formatCurrency, formatDate } from '../components/ui.jsx'
 
 const SACK_STATUS_COLORS = { open:'green', closed:'blue', shipped:'orange', arrived:'purple', cancelled:'red' }
@@ -27,9 +28,29 @@ export default function SackDetail() {
         <Btn variant="outline" color="blue" onClick={() => navigate('/sacks')}>
           <i className="ti ti-arrow-left" /> Back to Sacks
         </Btn>
-        <Btn color="blue" onClick={() => window.print()}>
-          <i className="ti ti-printer" /> Print
-        </Btn>
+        <Btn
+  color="blue"
+  onClick={() =>
+    generateSackManifestPdf(
+      {
+        sack_code: sack.sack_number,
+        destination: sack.destination,
+        status: sack.status,
+        weight: totals.weight,
+        parcels: parcels.map((p) => ({
+          tracking_id: p.tracking_id,
+          customer_name: p.customer_name,
+          recipient_name: p.receiver_name,
+          total_weight: p.weight,
+        })),
+      },
+      sack.created_by_name
+    )
+  }
+>
+  <i className="ti ti-printer" />
+  Print Manifest
+</Btn>
       </TopBar>
 
       <div style={{ background: C.white, border: `1px solid ${C.border}`, borderRadius: 12, padding: 24 }}>
