@@ -97,6 +97,8 @@ export default function NewShipment() {
     amount_paid: "",
     payment_method: "Cash",
   });
+  
+  
 
   const set = (k, v) => setForm((p) => ({ ...p, [k]: v }));
 
@@ -127,7 +129,8 @@ export default function NewShipment() {
     setErrors(e);
     return Object.keys(e).length === 0;
   };
-
+  const [createdParcel, setCreatedParcel] = useState(null);
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
@@ -139,6 +142,7 @@ export default function NewShipment() {
       const res = await api.post("/parcels", fd, {
         headers: { "Content-Type": "multipart/form-data" },
       });
+      setCreatedParcel(res.data);
       setSuccess(res.data.tracking_id);
     } catch (err) {
       setErrors({
@@ -195,20 +199,21 @@ export default function NewShipment() {
             {success}
           </div>
           <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>
+            {console.log(createdParcel)}
             <Btn
               color="green"
               onClick={() =>
                 generateParcelLabelPdf(
                   {
-                    tracking_id: p.tracking_id,
-                    destination: p.destination,
-                    customer_name: p.customer_name,
-                    recipient_name: p.receiver_name,
-                    recipient_contact: p.receiver_phone,
-                    total_weight: p.weight,
-                    sack_code: p.sack_number,
+                    tracking_id: createdParcel.tracking_id,
+                    destination: createdParcel.destination,
+                    customer_name: createdParcel.customer_name,
+                    recipient_name: createdParcel.receiver_name,
+                    recipient_contact: createdParcel.receiver_phone,
+                    total_weight: createdParcel.weight,
+                    sack_code: createdParcel.sack_number,
                   },
-                  // user?.full_name || "System"
+                  "Admin"
                 )
               }
             >

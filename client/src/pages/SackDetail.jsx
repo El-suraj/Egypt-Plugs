@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import api from '../lib/api.js'
 import { Layout, TopBar } from '../components/Layout.jsx'
-import { generateSackManifestPdf } from "../../../server/src/utils/pdfGenerator.js";
+import { generateSackManifestPdf } from "../lib/pdfGenerator.js";
 import { C, Badge, Btn, Spinner, Table, TR, TD, formatCurrency, formatDate } from '../components/ui.jsx'
 
 const SACK_STATUS_COLORS = { open:'green', closed:'blue', shipped:'orange', arrived:'purple', cancelled:'red' }

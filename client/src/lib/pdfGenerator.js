@@ -5,8 +5,8 @@ import JsBarcode from "jsbarcode";
 const ORIGIN = typeof window !== "undefined" ? window.location.origin : "";
 
 const COMPANY = {
-  name: "Cargo Tracker",
-  tagline: "Egypt → Nigeria",
+  name: "Egypt Plugs",
+  tagline: "Cairo → Nigeria",
   logo: "/logo.png", // Place inside /public/logo.png
 };
 
@@ -50,7 +50,7 @@ async function loadLogo() {
     img.crossOrigin = "anonymous";
 
     img.onload = () => {
-      const canvas = document.createElement("canavs");
+      const canvas = document.createElement("canvas");
 
       canvas.width = img.width;
       canvas.height = img.height;
@@ -496,6 +496,7 @@ async function drawManifestHeader(doc, manifest, qr, continued = false) {
 
   drawDivider(doc, 74, W);
 }
+
 
 function drawManifestTableHeader(doc, y) {
   const W = doc.internal.pageSize.getWidth();

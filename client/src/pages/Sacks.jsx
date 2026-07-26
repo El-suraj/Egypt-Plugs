@@ -534,26 +534,30 @@ export default function Sacks() {
                   color="blue"
                   onClick={() =>
                     generateSackManifestPdf(
-                      {
-                        sack_code: sacks.sack_number,
-                        destination: sacks.destination,
-                        status: sacks.status,
-                        parcels: sackParcels.map((p) => ({
-                          tracking_id: p.tracking_id,
-                          customer_name: p.customer_name,
-                          recipient_name: p.receiver_name,
-                          total_weight: p.weight,
-                        })),
-                      },
-                      // sacks.created_by_name,
-                    )
+                    {
+                      sack_code: activeSack.sack_number,
+                      destination: activeSack.destination,
+                      status: activeSack.status,
+                      weight: activeSack.total_weight,
+                      parcels: sackParcels.map((p) => ({
+                        tracking_id: p.tracking_id,
+                        customer_name: p.customer_name,
+                        recipient_name: p.receiver_name,
+                        total_weight: p.weight,
+                      })),
+                    },
+                    activeSack.created_by_name || "System"
+                    )                 
                   }
+                  
+                  
                 >
                   <i className="ti ti-printer" />
                   Print Manifest
                 </Btn>
               </div>
             )}
+            
           </div>
 
           {!activeSack ? (
