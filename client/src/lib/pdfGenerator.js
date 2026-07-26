@@ -72,7 +72,7 @@ function getDestinationColour(destination) {
   return DESTINATION_COLOURS[destination] || DESTINATION_COLOURS.Default;
 }
 
-function drawWarappedText(doc, text, x, y, width, lineHeight = 5) {
+function drawWrappedText(doc, text, x, y, width, lineHeight = 5) {
   const lines = doc.splitTextToSize(String(text || ""), width);
   doc.text(lines, x, y);
 
@@ -189,7 +189,7 @@ function drawSignatures(doc, y) {
 export async function generateParcelLabelPdf(parcel, operator = "System") {
   const trackUrl = `${ORIGIN}/track/${parcel.tracking_id}`;
 
-  const qrCode = await generateQRCode(trackUrl);
+  const qrCode = await generateQrCode(trackUrl);
   const barcode = await generateBarcode(parcel.tracking_id);
 
   const doc = new jsPDF({
