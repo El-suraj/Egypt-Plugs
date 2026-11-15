@@ -1,4 +1,6 @@
+const path = require("path");
 require("dotenv").config();
+require("dotenv").config({ path: path.join(__dirname, "../../.env") });
 const { Pool } = require("pg");
 
 const connectionString =
@@ -51,6 +53,7 @@ function normalizeSql(sql) {
   let index = 1;
   text = text.replace(/\?/g, () => `$${index++}`);
 
+  text = text.trim().replace(/;+$/, "");
   if (/^\s*INSERT\b/i.test(text) && !/\bRETURNING\b/i.test(text)) {
     text = `${text} RETURNING id`;
   }

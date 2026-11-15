@@ -199,19 +199,18 @@ export default function NewShipment() {
             {success}
           </div>
           <div style={{ display: "flex", gap: 12, justifyContent: "center" }}>
-            {console.log(createdParcel)}
             <Btn
               color="green"
               onClick={() =>
                 generateParcelLabelPdf(
                   {
-                    tracking_id: createdParcel.tracking_id,
-                    destination: createdParcel.destination,
-                    customer_name: createdParcel.customer_name,
-                    recipient_name: createdParcel.receiver_name,
-                    recipient_contact: createdParcel.receiver_phone,
-                    total_weight: createdParcel.weight,
-                    sack_code: createdParcel.sack_number,
+                     tracking_id: createdParcel.tracking_id,
+                     destination: createdParcel.destination,
+                     customer_name: createdParcel.customer_name,
+                     recipient_name: createdParcel.receiver_name,
+                     recipient_contact: createdParcel.receiver_phone,
+                     total_weight: createdParcel.weight,
+                     sack_code: createdParcel.sack_number,
                   },
                   "Admin"
                 )

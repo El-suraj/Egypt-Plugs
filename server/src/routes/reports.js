@@ -305,7 +305,7 @@ router.get("/delivery-performance", authenticate, async (req, res) => {
     const result = await db.execute({
       sql: `SELECT p.destination,
                    COUNT(*) as total_delivered,
-                   ROUND(AVG(julianday(p.updated_at) - julianday(p.created_at)), 1) as avg_days_to_deliver
+                   ROUND(AVG(julianday(p.updated_at) - julianday(p.created_at))::numeric, 1) as avg_days_to_deliver
             FROM parcels p
             WHERE p.status = 'delivered'
               AND p.created_at >= date('now', ? || ' days')
